@@ -23,7 +23,7 @@ public class PostController {
         return "Here is post creation form: ";
     }
 
-    @RequestMapping(path = "/posts/create", method = RequestMethod.POST)
+    @PostMapping("/posts/create")
     @ResponseBody
     public String createNewPost () {
         return "Here is the newly created post:";
