@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Edit a Post</title>
+    <th:block th:include="partials/bootstrap :: styling"></th:block>
+</head>
+<body>
+<!--Thymeleaf action syntax-->
+<form th:action="@{/posts/{id}/edit (id = ${postToEdit.getId()})}" th:method="POST">
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title" name="title" th:value="${postToEdit.getTitle()}">
+    </div>
+    <input type="hidden" th:value="${postToEdit.getId()}">
+    <div class="form-group">
+        <label for="body">Body</label>
+        <!--Textarea elements do not have a value attribute, so we will represent the body using the th:text-->
+        <textarea class="form-control" id="body" rows="3" name="body" th:text="${postToEdit.getBody()}"></textarea>
+    </div>
+    <button type="submit">Submit</button>
+</form>
+<th:block th:replace="partials/bootstrap :: scripts"></th:block>
+</body>
+</html>
