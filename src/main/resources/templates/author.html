@@ -5,12 +5,12 @@
     <title>Author</title>
 </head>
 <body>
-<h1>Books by <span th:text="${author.getName()}"></span></h1>
+    <h1>Books by <span th:text="${author.getName()}"></span></h1>
 
-<ul>
-    <li th:each="book : ${author.getBooks()}">
-        <u th:text="${book.getTitle()}"></u>
-    </li>
-</ul>
+    <ul>
+        <li th:each="book : ${author.getBooks()}">
+            <u th:text="${book.getTitle()}"></u>
+        </li>
+    </ul>
 </body>
 </html>

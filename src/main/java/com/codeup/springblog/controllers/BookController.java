@@ -1,7 +1,6 @@
 package com.codeup.springblog.controllers;
 
 import com.codeup.springblog.models.Book;
-import com.codeup.springblog.models.Genre;
 import com.codeup.springblog.repositories.AuthorRepository;
 import com.codeup.springblog.repositories.BookRepository;
 import com.codeup.springblog.repositories.GenreRepository;
@@ -11,10 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class BookController {

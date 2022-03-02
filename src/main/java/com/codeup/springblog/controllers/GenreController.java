@@ -1,6 +1,5 @@
 package com.codeup.springblog.controllers;
 
-import com.codeup.springblog.repositories.AuthorRepository;
 import com.codeup.springblog.repositories.GenreRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
