@@ -1,4 +1,4 @@
-package com.codeup.regulusspringblog.controllers;
+package com.codeup.springblog.controllers;
 
 import com.codeup.springblog.models.Book;
 import com.codeup.springblog.models.Genre;
