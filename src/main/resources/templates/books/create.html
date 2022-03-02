@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Create a Post</title>
+    <th:block th:include="partials/bootstrap :: styling"></th:block>
+</head>
+<body>
+<form th:action="@{/books/create}" th:method="POST" th:object="${book}">
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title" name="title" th:field="*{title}">
+        <span th:each="genre : ${genres}">
+            <input type="checkbox" th:field="*{genres}" th:id="genre + ${genre.id}" th:value="${genre.id}">
+            <label th:for="genre + ${genre.id}" th:text="${genre.name}"></label>
+        </span>
+    </div>
+
+    <button type="submit">Submit</button>
+</form>
+<th:block th:replace="partials/bootstrap :: scripts"></th:block>
+</body>
+</html>

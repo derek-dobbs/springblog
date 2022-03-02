@@ -1,34 +1,25 @@
-package com.codeup.regulusspringblog.controllers;
+package com.codeup.springblog.controllers;
 
 import com.codeup.springblog.models.Post;
 import com.codeup.springblog.repositories.PostRepository;
+import com.codeup.springblog.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Controller
 public class PostController {
     private PostRepository postsDao;
+    private UserRepository usersDao;
 
-    public PostController(PostRepository postsDao) {
+    public PostController(PostRepository postsDao, UserRepository usersDao) {
         this.postsDao = postsDao;
+        this.usersDao = usersDao;
     }
 
     @GetMapping("/posts")
     public String viewPosts(Model model) {
-        List<Post> allPosts = new ArrayList<>();
-        Post p2 = new Post(2, "Test", "This is for testing purposes");
-        Post p3 = new Post(3, "Weather Update", "It's gon rain");
-        Post p4 = new Post(4, "Codeup", "Join codeup today and get your career launched in tech!");
-
-        allPosts.add(p2);
-        allPosts.add(p3);
-        allPosts.add(p4);
-
-        model.addAttribute("allPosts", allPosts);
+        model.addAttribute("allPosts", postsDao.findAll());
 
         return "posts/index";
     }
@@ -36,21 +27,22 @@ public class PostController {
 
     @GetMapping("/posts/{id}")
     public String postDetails(@PathVariable long id, Model model) {
-        Post p1 = new Post(1, "Regulus Spring", "Hello, we are currently learning views in Spring!");
-        model.addAttribute("singlePost", p1);
+        model.addAttribute("singlePost", postsDao.getById(id));
         return "posts/show";
     }
 
 
     @GetMapping("/posts/create")
-    public String showCreateForm() {
+    public String showCreateForm(Model model) {
+        model.addAttribute("newPost", new Post());
         return "posts/create";
     }
 
 
     @PostMapping("/posts/create")
-    public String submitCreateForm(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body) {
-        Post newPost = new Post(title, body);
+    public String submitCreateForm(@ModelAttribute Post newPost) {
+        //Post newPost = new Post(title, body);
+        newPost.setUser(usersDao.getById(1L));
         postsDao.save(newPost);
 
         return "redirect:/posts";
@@ -64,13 +56,13 @@ public class PostController {
     }
     // We can access the values submitted from the form using our @RequestParam annotation
     @PostMapping("/posts/{id}/edit")
-    public String submitEdit(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body, @PathVariable long id) {
+    public String submitEdit(@ModelAttribute Post postToEdit, @PathVariable long id) {
 
         // grab the post from our DAO
-        Post postToEdit = postsDao.getById(id);
+//    Post postToEdit = postsDao.getById(id);
         // use setters to set new values to the object
-        postToEdit.setTitle(title);
-        postToEdit.setBody(body);
+//    postToEdit.setTitle(title);
+//    postToEdit.setBody(body);
         // save the object with new values
         postsDao.save(postToEdit);
         return "redirect:/posts";

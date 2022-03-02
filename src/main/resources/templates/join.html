@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
     <title>Join</title>
 </head>
 <body>
 
+
+<!--IF the boolean expression equals true, show the element and its contents, else, don't.-->
+<!--<h1 th:if="${false}" th:text="${cohort}"></h1>-->
 <h1 th:text="${cohort}"></h1>
 
 <form action="/join" method="post">

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Library</title>
+</head>
+<body>
+<h1>Looking at books of the genre: <span th:text="${chosenGenre}"></span></h1>
+<ul>
+    <li th:each="book : ${books}">
+        <u th:text="${book.getTitle()}"></u> by <span th:text="${book.getAuthor().getName()}"></span><span th:each="genre : ${book.getGenres()}" th:if="${genre.getName()} != ${chosenGenre}" >
+         [<a th:href="@{/genres/{id} (id = ${genre.getId()})}" th:text="${genre.getName()}"></a>]
+    </span>
+    </li>
+</ul>
+</body>
+</html>

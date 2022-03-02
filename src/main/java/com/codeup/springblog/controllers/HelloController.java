@@ -1,4 +1,4 @@
-package com.codeup.springblog;
+package com.codeup.springblog.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -6,10 +6,12 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class HelloController {
+    // Use curly braces to establish Path Variables in the mapping definition.
     @GetMapping("/hello/{name}")
     @ResponseBody
+    // Use annotation to get the value of the Path Variable.
     public String hello(@PathVariable String name) {
-        return "Hello, " + name + "!";
+        return "Hello, " + name + " !";
     }
 
     @GetMapping("/test")
@@ -18,35 +20,18 @@ public class HelloController {
         return "test";
     }
 
-    //Request Mapping
+    // REQUEST MAPPING
+//    @GetMapping("/increment/{number}")
     @RequestMapping(path = "/increment/{number}", method = RequestMethod.GET)
     @ResponseBody
     public String increment(@PathVariable int number) {
         return number + " plus one is " + (number + 1) + "!";
     }
 
-    // Roll Dice from Views Exercise
 
-    @GetMapping("/roll-dice")
-    public String showOptions() {
-        return "roll-dice";
-    }
 
-    @GetMapping("/roll-dice/{n}")
-    public String showResult(@PathVariable int n, Model model) {
-        int randomNum = (int)(Math.random() * 6) + 1;
 
-//
-        model.addAttribute("randomNum", randomNum);
-//
-
-        if(n == randomNum) {
-            model.addAttribute("result", "You guessed correctly!");
-        } else {
-            model.addAttribute("result", "Sorry, your guess was incorrect.");
-        }
-        return "roll-dice";
-    }
+    // Example of Receiving and Sending Data
 
     @GetMapping("/join")
     public String showJoinForm() {
@@ -59,4 +44,33 @@ public class HelloController {
         return "join";
     }
 
-}//end class HelloController
+
+
+    // Passing a collection of data
+    @GetMapping("/greek-gods")
+    public String showGreekGods(Model model) {
+        String[] names = {"Zeus", "Hercules", "Hades", "Apollo"};
+        model.addAttribute("greekGods", names);
+        return "greekGods";
+    }
+
+    // Roll Dice from Views Exercise
+
+    @GetMapping("/roll-dice")
+    public String showOptions() {
+        return "roll-dice";
+    }
+
+    @GetMapping("/roll-dice/{n}")
+    public String showResult(@PathVariable int n, Model model) {
+        int randomNum = (int)(Math.random() * 6) + 1;
+        if(n == randomNum) {
+            model.addAttribute("result", "You guessed correctly!");
+        } else {
+            model.addAttribute("result", "Sorry, your guess was incorrect.");
+        }
+        return "roll-dice";
+    }
+
+
+}
